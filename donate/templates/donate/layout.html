@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="icon" href="https://previews.123rf.com/images/pixdesign123/pixdesign1231408/pixdesign123140800173/31092174-cartoon-character-of-blood-drop-with-best-sign.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+        <link href="{% static 'donate/navbar.css' %}" rel="stylesheet"> 
+        <!-- <link href="{% static 'donate/dist_styles.css' %}" rel="stylesheet">  -->
+        {% block stylelink %} {% endblock %}
+        {% block scriptlink %} {% endblock %}
+    </head>
+    <body>  
+        <nav class="navbar navbar-expand-md fixed-top" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+                <button class="navbar-toggler font-weight-bold bg-secondary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item mx-0 mx-md-1"><a class="nav-link py-3 px-0 px-md-3 rounded" href="{% url 'requests' %}">Requests</a></li>
+                            <li class="nav-item mx-0 mx-md-1"><a class="nav-link py-3 px-0 px-md-3 rounded" href="{% url 'logout' %}">Logout</a></li>
+                            <li class="nav-item mx-0 mx-md-1"><a class="nav-link py-3 px-0 px-md-3 rounded" href="{% url 'profile' name=user.username %}">Signed in as <strong>{{ user }}</strong></a></li>
+                        {% else %}
+                            <li class="nav-item mx-0 mx-md-1"><a class="nav-link py-3 px-0 px-md-3 rounded" href="{% url 'login' %}">Login</a></li>
+                            <li class="nav-item mx-0 mx-md-1"><a class="nav-link py-3 px-0 px-md-3 rounded" href="{% url 'register' %}">Register</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div>
+        {% block body %}
+        {% endblock %}
+        </div>
+    
+        <script src="{% static 'donate/scripts.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    </body>
+    </html>
+</html>

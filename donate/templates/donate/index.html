@@ -1,0 +1,76 @@
+{% extends "donate/layout.html" %}
+{% load static %}
+
+{% block title %}Blood Fund{% endblock %}
+
+{% block stylelink %} 
+    <link href="{% static 'donate/styles.css' %}" rel="stylesheet">  
+    <link href="{% static 'donate/home.css' %}" rel="stylesheet"> 
+{% endblock %}
+
+{% block scriptlink %} <script src="{% static 'donate/index.js' %}"></script>{% endblock %}
+
+{% block body %}
+
+    <div class="homecontainer flexcont" style="justify-content: space-around;">
+        <div style="max-width: 450px;">
+            <h1 id="mainheading"> Blood Fund </h1>
+            <p id="toptext">  
+                Every day thousands of people die due to
+                blood loss or not finding blood on time.
+                Register as a donor to save lives or as a
+                Hospital to get blood bank data in no time. <br>
+                <br><br>
+            </p>
+        </div>
+        
+        <img src="{% static 'donate/images/heart.png' %}" id="topimg">   
+    </div>
+
+    <div class="container-lg">
+
+        <div class="card">
+        <h3>Search Donation places in your City</h3>
+        <div style="display:flex; flex-flow: row wrap;">
+            {% csrf_token %}
+            <select class="form-control drop" aria-label="Search City" id="drop1">
+                <option value="Select Your City" selected>Select Your City</option>
+                <option value="Andheri">Andheri</option>
+                <option value="Bandra">Bandra</option>
+                <option value="Goregaon">Goregaon</option>
+                <option value="Juhu">Juhu</option>
+                <option value="Khar Road">Khar Road</option>
+                <option value="Santacruz">Santacruz</option>
+                <option value="Vile Parle">Vile Parle</option> 
+            </select>
+            <button type="submit" name="city_search" class="btn btn-info" id="submit1">Search</button>
+        </div>
+        </div>
+    
+        <br>
+        <div id="list"></div>
+
+        <img src="https://image.freepik.com/free-vector/blood-donation-station_74855-6261.jpg" id="middleimg">
+        
+        {% if user.is_hospital == True %}
+        <br>
+            <h2>Search Blood Units in Banks</h2>
+            <div style="display:flex; flex-flow: row wrap;" class="card">
+                {% csrf_token %}
+                <select class="form-control drop" name="blood_bank_type" required id="drop2">
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+                <button type="submit" name="blood_search" class="btn btn-info" id="submit2">Search</button>
+            </div>
+                
+            <div class="card" id="unitr"></div>    
+        {% endif %}
+    </div>
+{% endblock %}         
